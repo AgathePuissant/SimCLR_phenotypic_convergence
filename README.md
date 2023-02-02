@@ -73,7 +73,7 @@ Python codes can be run from command lines. You should change directory to the f
 
 For the segmentation, you should prepare one folder named as you wish where various subfolders will be created. The trained segmentation model can be found in supplementary materials and should be put in this folder.
 
-####1-segmentation.py
+#### 1-segmentation.py
 
 ```
 python 1-segmentation.py --path ./segmentation --path_jpg ./images_jpg --wing_name ['_Ant_g','_Post_g','_Ant_d','_Post_d'] --save_imwing_raw False --save_as_tif False --dim_images 3
