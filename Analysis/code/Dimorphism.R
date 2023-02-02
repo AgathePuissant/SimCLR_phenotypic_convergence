@@ -4,6 +4,9 @@ source("./code/basis_functions/match_tree.R")
 source("./code/basis_functions/get_phenotype.R")
 library(ggtree)
 
+# Here choose the sex and wing side that you want, F for female and V for ventral
+# level can be sp to be at the species level or form to be at the form level
+
 list_get_phenotype = get_phenotype("M","D", level="form", mode = 'mean')
 meanphen_M <- list_get_phenotype[[1]]
 data_M <- list_get_phenotype[[2]]
@@ -27,7 +30,7 @@ meanphen_F <- list_match[[2]]
 rm(list=c("list_match"))
 
 
-######################
+###################### Compuration of dimorphism
 
 meanphen_dimorph = diag(as.matrix(dist(meanphen_M,meanphen_F)))
 meanphen_dimorph = as.data.frame(meanphen_dimorph)
@@ -41,25 +44,27 @@ p2 <- gheatmap(p, meanphen_dimorph,offset=0, width=.05, colnames = F,legend_titl
 
 p2
 
-#################
-dM<-as.matrix(proxy::dist(meanphen_M))
-dF<-as.matrix(proxy::dist(meanphen_F))
+################# Compute ratio for sister species
+dM<-as.matrix(proxy::dist(meanphen_M)) #male/male difference
+dF<-as.matrix(proxy::dist(meanphen_F)) #female/female difference
 
 
-dratio <- dM/dF
+dratio <- dM/dF #ratio between every pair of species
 
 library(diverge)
-sis=extract_sisters(subtree)
+sis=extract_sisters(subtree) #get the sister speceis
 sis$ratio <- 0
 sis$dm <- 0
 sis$df <- 0
 
-for (sp in 1:dim(sis)[1]){
+#Get the ratio for each pair of sister species
+for (sp in 1:dim(sis)[1]){ 
   sis[sp,]$ratio<-dratio[sis[sp,1],sis[sp,2]]
   sis[sp,]$dm <-dM[sis[sp,1],sis[sp,2]]
   sis[sp,]$df <-dF[sis[sp,1],sis[sp,2]]
 }
 
+#Find max dimorphism value for the pair
 sis$dimorphism <- apply(cbind(meanphen_dimorph[sis$sp1,],meanphen_dimorph[sis$sp2,]),1,max)
 
 
@@ -81,7 +86,7 @@ p3
 summary(sis$dimorphism)
 
 
-################
+################ Plot ratio distribution for monomorphic vs dimorphic species
 
 library(scales)
 library(RColorBrewer)
@@ -103,7 +108,7 @@ densdimorph
 
 
 
-##############
+############## Test whether the ratio is less than one for dimorphic species in average
 
 wilcox.test(sis[sis$dimorphism>0.3,]$ratio, mu=1, alternative = "less")
 

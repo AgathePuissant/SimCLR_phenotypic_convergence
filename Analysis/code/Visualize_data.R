@@ -26,13 +26,14 @@ meanphen <- list_match[[2]]
 # PCA on species means ----------------------------------------------------
 
 #Do not execute this first part if you do not have the images to scatter
+
 randomsample = data %>%
   group_by(genresp,sex) %>%
   sample_n(1)
 
 namesrandomsample <- paste0(randomsample$genresp)
 randomsample <- randomsample[,1]
-randomsample$id <- apply(randomsample,1,function(x) paste('./data/images/',x,'D.png',sep=''))
+randomsample$id <- apply(randomsample,1,function(x) paste('./data/dataset_bg/',x,'D.png',sep=''))
 rownames(randomsample) <- namesrandomsample
 
 randomsample <- cbind(meanphen,randomsample[rownames(meanphen),])
