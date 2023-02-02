@@ -17,6 +17,8 @@ Python packages needed :
 
 *** 
 **Segmentation**
+
+```
 pixellib
 cv2
 matplotlib
@@ -29,19 +31,32 @@ tqdm
 skimage
 rembg
 argparse
+```
+
 **Clustering**
+
+```
 tensorflow
 umap
 hdbscan
 sklearn
 pathlib
+```
+
 **Training**
+
+```
 lightly
 torch
 torchvision
+```
+
 **Embed**
+```
 pytorch_lightning
 pandas
+```
+
 *** 
 
 
