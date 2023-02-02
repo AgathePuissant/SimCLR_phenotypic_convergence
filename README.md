@@ -12,3 +12,39 @@ And the R code necessary to:
 - Visualize the morpho space
 - Run a permutation test to assess convergence and divergence in sympatry
 - Assess which sex contributes to recent dimorphism evolution
+
+Python packages needed :
+
+> 
+#Segmentation
+pixellib
+cv2
+matplotlib
+numpy
+PIL
+shapely
+scipy
+shutil
+tqdm
+skimage
+rembg
+argparse
+#Clustering
+tensorflow
+umap
+hdbscan
+sklearn
+pathlib
+#Training
+lightly
+torch
+torchvision
+#Embed
+pytorch_lightning
+pandas
+
+
+**Instructions to run the codes are listed below**
+
+## Machine Learning
+
