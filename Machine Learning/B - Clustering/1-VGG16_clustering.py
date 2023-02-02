@@ -22,13 +22,13 @@ from argparse import ArgumentParser
 
 parser = ArgumentParser()
 
-parser.add_argument("--path", type=str, default = r"C:\Users\Agathe\Desktop\dataset_all") #path to the segmented images
+parser.add_argument("--path_images", type=str, default = r"C:\Users\Agathe\Desktop\dataset_all") #path to the segmented images
 parser.add_argument("--path_clustering", type=str, default = "C:/Users/Agathe/Desktop/clustering") #path to the clustering folder to save clustered images
 
 args = parser.parse_args()
 dict_args = vars(args)
 
-path = dict_args['path']
+path = dict_args['path_images']
 path_clustering = dict_args['path_clustering']
 
 #change the working directory to the path where the images are located

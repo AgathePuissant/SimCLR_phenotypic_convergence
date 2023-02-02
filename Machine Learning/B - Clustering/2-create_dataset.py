@@ -11,14 +11,14 @@ parser = ArgumentParser()
 
 parser.add_argument("--path_images", type=str, default = r"C:\Users\Agathe\Desktop\dataset_test") #path to the segmented images
 parser.add_argument("--path_dataset", type=str, default = "C:/Users/Agathe/Desktop/train_label_test") 
-parser.add_argument("--path_clusters", type=str, default = "C:/Users/Agathe/Desktop/clustering") 
+parser.add_argument("--path_clustering", type=str, default = "C:/Users/Agathe/Desktop/clustering") 
 
 args = parser.parse_args()
 dict_args = vars(args)
 
 path_images = dict_args['path_images']
 path_dataset = dict_args['path_dataset']
-path_clusters = dict_args['path_clusters']
+path_clusters = dict_args['path_clustering']
 
 im =  os.listdir(path_images)
 

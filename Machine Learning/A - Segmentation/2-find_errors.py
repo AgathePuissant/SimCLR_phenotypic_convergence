@@ -11,15 +11,15 @@ from argparse import ArgumentParser
 
 parser = ArgumentParser()
 
-parser.add_argument("--path_masks", type=str, default = "J:/Segmentation/test_code/segmented") #path to the segmentation folder
-parser.add_argument("--path_jpg", type=str, default =r'J:\Data\test_images\\') #path to the jsp image files
+parser.add_argument("--path", type=str, default = "J:/Segmentation/test_code") #path to the segmentation folder
+parser.add_argument("--path_jpg", type=str, default =r'J:\Data\test_images') #path to the jsp image files
 parser.add_argument("--wing_name", type=list, default =['_Ant_g','_Post_g','_Ant_d','_Post_d']) #List of names for the 4 wings
 
 args = parser.parse_args()
 dict_args = vars(args)
 
-path_masks = dict_args['path_masks']
-path_jpg = dict_args['path_jpg']
+path_masks = dict_args['path']+"/segmented"
+path_jpg = dict_args['path_jpg']+"/"
 wing_names = dict_args['wing_name']
 
 model = "mask_rcnn_model.085-0.066738.h5" #Trained segmentation model

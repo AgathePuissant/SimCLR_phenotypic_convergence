@@ -91,5 +91,63 @@ A subfolder named "segmented" will be created where segmentation outputs will be
 
 A subfolder named "rembg_out" will be created with PNG files of your images with the background removed.
 
+#### 2-find_errors.py
+
+This code is optional. It finds the images for which there is potentially errors in the refined segmentation by comparing the raw and refined segmentation. It saves the list of potentially erroneous images in a .nppy file that can be then used to "correct" the segmentation.
+
+
+```
+python 2-find_errors.py --path ./segmentation --path_jpg ./images_jpg --wing_name ['_Ant_g','_Post_g','_Ant_d','_Post_d']
+```
+
+#### 3-correct_errors.py
+
+This code is optional. Should be run after find_errors, goes back to erroneous images and replaces their refined segmentation by the raw segmentation.
+
+```
+python 3-correct_errors.py --path ./segmentation --path_jpg ./images_jpg --wing_name ['_Ant_g','_Post_g','_Ant_d','_Post_d'] --save_imwing_raw False --save_as_tif False --dim_images 3
+```
+
+#### 4-get_imagedata.py
+
+This code copies the segmented images in the subfolders to a folder of your choice.
+
+```
+python 4-get_imagedata.py --path ./segmentation --path_save ./all_segmented
+```
+
+Argument:
+- path_save: path to where you want your dataset saved 
+
+
+### B - Clustering
+
+#### 1-VGG16_clustering.py
+
+This code generated embeddings from a VGG16 pretrained network, projects them in 3 dimensions using a UMAP projection and clusters using HDBscan clustering.
+
+You should create a folder named as you want to store the results from the clustering.
+
+```
+python 1-VGG16_clustering.py --path_images ./all_segmented --path_clustering ./clustering
+```
+Argument:
+- path_images: path to the dataset with segmented images
+- path_clustering: path to the designated folder to store the results from the clustering
+
+Running this code, you will be asked to choose two parameters for the HDBscan clustering (see HDBscan documentation for more info).
+
+
+#### 2-create_dataset.py
+
+This code will create the unlabeled data used for SimCLR training, and the training and validation data used for the evaluation by classification, using the cluster labels as labels.
+
+You should create a folder with whatever name to store the dataset.
+
+```
+python 2-create_dataset.py --path_images ./all_segmented --path_dataset ./dataset --path_clustering ./clustering
+```
+
+### C - Training
 
 

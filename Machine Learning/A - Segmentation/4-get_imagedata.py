@@ -6,13 +6,13 @@ from argparse import ArgumentParser
 
 parser = ArgumentParser()
 
-parser.add_argument("--path_segment", type=str, default = "J:/Segmentation/test_code/segmented") #path to the segmentation folder
+parser.add_argument("--path", type=str, default = "J:/Segmentation/test_code") #path to the segmentation folder
 parser.add_argument("--path_save", type=str, default =r"C:\Users\Agathe\Desktop\dataset_test") #path to the jsp image files
 
 args = parser.parse_args()
 dict_args = vars(args)
 
-path_segment = dict_args['path_segment']
+path_segment = dict_args['path']+"/segmented/"
 path_save = dict_args['path_save']
 os.chdir(path_segment)
 
