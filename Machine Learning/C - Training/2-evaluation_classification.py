@@ -29,7 +29,6 @@ parser.add_argument("--param_i", type=int, default=0)
 parser.add_argument("--path_to_data", type=str, default="/mnt/beegfs/apuissant/train_label_16")
 parser.add_argument("--path_save_model", type=str, default="/mnt/beegfs/apuissant/gridsearch_16")
 parser.add_argument("--num_workers", type=int, default=16)
-parser.add_argument("--path_save_model", type=str, default="/mnt/beegfs/apuissant/gridsearch_16")
 
 
 args = parser.parse_args()

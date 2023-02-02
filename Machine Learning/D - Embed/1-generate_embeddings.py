@@ -19,7 +19,7 @@ from argparse import ArgumentParser
 parser = ArgumentParser()
 
 parser.add_argument("--path_to_data", type=str, default = r"C:\Users\Agathe\Desktop\dataset_test") #path to the segmented images
-parser.add_argument("--model_to_use", type=str, default = r"C:\Users\Agathe\Mon Drive\Données\saved_models\ContrastiveLearning\transfer_trained_on_all_classified_16") 
+parser.add_argument("--path_save_model", type=str, default = r"C:\Users\Agathe\Mon Drive\Données\saved_models\ContrastiveLearning\transfer_trained_on_all_classified_16") 
 parser.add_argument("--path_save", type=str, default = "C:/Users/Agathe/Desktop") 
 parser.add_argument("--param_i", type=int, default=-1)
 parser.add_argument("--num_workers", type=int, default=16)
@@ -28,7 +28,7 @@ args = parser.parse_args()
 dict_args = vars(args)
 
 path_to_data = dict_args['path_to_data'] #Path to all images to generate embeddings for
-model_to_use = dict_args['model_to_use'] #Path to trained model to use
+model_to_use = dict_args['path_save_model'] #Path to trained model to use
 path_save = dict_args['path_save'] #Path to save embeddings to 
 param = dict_args['param_i']
 num_workers = dict_args['num_workers']
