@@ -122,6 +122,8 @@ Argument:
 
 ### B - Clustering
 
+```cd ./SimCLR_phenotypic_convergence/Machine Learning/B - Clustering```
+
 #### 1-VGG16_clustering.py
 
 This code generated embeddings from a VGG16 pretrained network, projects them in 3 dimensions using a UMAP projection and clusters using HDBscan clustering.
@@ -149,5 +151,7 @@ python 2-create_dataset.py --path_images ./all_segmented --path_dataset ./datase
 ```
 
 ### C - Training
+
+```cd ./SimCLR_phenotypic_convergence/Machine Learning/C - Training```
 
 
