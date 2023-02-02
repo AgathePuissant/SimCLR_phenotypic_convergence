@@ -1,6 +1,6 @@
 # Convergence in sympatric swallowtail butterflies reveal the significance of ecological interactions as driver of trait diversification at global scale
 
-:bug: :honeybee: :ant:
+🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋🦋
 
 This repository contains the python code necessary to: 
 - Segment butterfly images into 4 wings and remove all other parts
