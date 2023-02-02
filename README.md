@@ -15,8 +15,8 @@ And the R code necessary to:
 
 Python packages needed :
 
-> 
-#Segmentation
+*** 
+**Segmentation**
 pixellib
 cv2
 matplotlib
@@ -29,22 +29,25 @@ tqdm
 skimage
 rembg
 argparse
-#Clustering
+**Clustering**
 tensorflow
 umap
 hdbscan
 sklearn
 pathlib
-#Training
+**Training**
 lightly
 torch
 torchvision
-#Embed
+**Embed**
 pytorch_lightning
 pandas
+*** 
 
 
 **Instructions to run the codes are listed below**
 
 ## Machine Learning
+
+
 
