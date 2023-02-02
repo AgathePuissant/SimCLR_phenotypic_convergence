@@ -64,5 +64,32 @@ pandas
 
 ## Machine Learning
 
+### A - Segmentation
+
+The segmentation code uses a pretrained segmentation model that uses PixelLib to automatically segment wings for other parts of the butterflies and background. Then there is a refinement step to obtain well segmented wings.
+
+Python codes can be run from command lines. You should change directory to the folder named "A - Segmentation" using the following command : ```cd ./SimCLR_phenotypic_convergence/Machine Learning/A - Segmentation```
+
+
+For the segmentation, you should prepare one folder named as you wish where various subfolders will be created. The trained segmentation model can be found in supplementary materials and should be put in this folder.
+
+####1-segmentation.py
+
+```
+python 1-segmentation.py --path ./segmentation --path_jpg ./images_jpg --wing_name ['_Ant_g','_Post_g','_Ant_d','_Post_d'] --save_imwing_raw False --save_as_tif False --dim_images 3
+```
+
+Arguments :
+- path: path to your segmentation folder
+- path_jpg: path to your raw images in jpg format
+- wing_name: suffixes used for the 4 wings
+- save_imwing_raw: whether you want the raw segmentation output saved
+- save_as_tif: whether you want the refined segmentation output as tiff, if not it will be saved as jpg
+- dim_images: number of channels of your images (3 for RGB)
+
+A subfolder named "segmented" will be created where segmentation outputs will be stored for your images. Segmentation output for an image named "ABC.jpg" will be stored in the "ABC_output" folder with one mask for each wing and the segmented image.
+
+A subfolder named "rembg_out" will be created with PNG files of your images with the background removed.
+
 
 

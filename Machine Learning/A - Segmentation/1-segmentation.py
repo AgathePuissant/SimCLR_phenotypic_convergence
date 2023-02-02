@@ -51,7 +51,7 @@ path/
 
 #%%
 
-
+os.mkdir(path+"segmented")
 os.chdir(path+"segmented") #Where to save the segmentation results
 
 
