@@ -15,6 +15,7 @@ harmonize <- function(path_data_photos= "./data/data_photos.csv", path_coords = 
   
   data$ssp[data$ssp=='-'] <- data$sp[data$ssp=='-']
   data$form[is.na(data$form)] <- data$ssp[is.na(data$form)]
+  data$form[data$form==''] <- data$ssp[data$form=='']
   
   data$tipsgenre <- paste(data$genus,data$sp,sep="_")
   

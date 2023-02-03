@@ -12,14 +12,14 @@ library(cowplot)
 # level can be sp to be at the species level or form to be at the form level
 
 
-list_get_phenotype = get_phenotype(c("M"),c("D"), mode = 'mean', level = "sp") 
+list_get_phenotype = get_phenotype(c("M"),c("D"), mode = 'mean', level = "form") 
 meanphen <- list_get_phenotype[[1]]
 data <- list_get_phenotype[[2]]
 sp_data <- list_get_phenotype[[4]]
 rm(list=c("list_get_phenotype"))
 
 
-list_match <- match_tree(meanphen_match = meanphen, data_match = data, add_poly=F)
+list_match <- match_tree(meanphen_match = meanphen, data_match = data, add_poly=T)
 subtree <- list_match[[1]]
 meanphen <- list_match[[2]]
 

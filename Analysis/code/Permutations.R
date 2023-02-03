@@ -107,6 +107,7 @@ for (i in c(1:nsim)){
   
   res_sim <- df_loc
   
+  #This block of code is necessary to match the permuted residuals to the right permuted pairs
   res_sim$tip1 <- shuf[match(as.character(res_sim$tip1), as.character(shuf$old)),1]
   res_sim$tip2 <- shuf[match(as.character(res_sim$tip2), as.character(shuf$old)),1]
   newpairs<-res_sim %>%
