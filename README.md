@@ -192,3 +192,21 @@ python 1-generate_embeddings.py --param_i -1 --path_to_data ./dataset --path_sav
 Arguments:
 - path_save: path where to save the pca coordinates and embeddings.
 
+
+## R analysis
+
+You can open the R project and open the files in the "code" folder.
+All necessary data and image for vizualisation are provided.
+
+#### Visualize_data.R 
+This code plots the phylo morpho space and the scatterplot with butterfly images. It also computes the phylogenetic signal for colour pattern variation.
+
+#### Permutations.R 
+Code necessary to run the Lapointe-Garland permuation test to assess convergence and divergence among pairs in sympatry and allopatry. The run time is **very long** so results are saved in a RData file (saved_pairs_F.Rdata and saved_pairs_M.RData)
+
+#### Pairs_analysis.R 
+Reproduces the tests and plots from the paper.
+
+#### Dimorphism.R
+Computes dimorphism and ratio of raw contrasts for males and females, and analyses the distribution of ratio.
+
