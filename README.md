@@ -1,4 +1,4 @@
-# 🦋 Convergence in sympatric swallowtail butterflies reveal the significance of ecological interactions as driver of trait diversification at global scale 🦋
+# Convergence in sympatric swallowtail butterflies reveal the significance of ecological interactions as driver of trait diversification at global scale
 
 
 This repository contains the python code necessary to: 
