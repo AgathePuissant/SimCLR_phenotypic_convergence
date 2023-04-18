@@ -38,7 +38,7 @@ argparse
 
 ```
 tensorflow
-umap
+umap-learn
 hdbscan
 sklearn
 pathlib
