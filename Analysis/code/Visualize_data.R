@@ -12,7 +12,7 @@ library(cowplot)
 # level can be sp to be at the species level or form to be at the form level
 
 
-list_get_phenotype = get_phenotype(c("M"),c("D"), mode = 'mean', level = "form") 
+list_get_phenotype = get_phenotype(c("F"),c("D"), mode = 'mean', level = "form") 
 meanphen <- list_get_phenotype[[1]]
 data <- list_get_phenotype[[2]]
 sp_data <- list_get_phenotype[[4]]
