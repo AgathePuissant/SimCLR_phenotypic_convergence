@@ -142,16 +142,17 @@ class SimCLRModel(pl.LightningModule):
     
 #%%
 
-torch.cuda.empty_cache()
-gpus = 1 if torch.cuda.is_available() else 0
-
-model = SimCLRModel(t=temp)
-
-trainer = pl.Trainer(
-    max_epochs=max_epochs, progress_bar_refresh_rate=100, log_every_n_steps=1, gpus=gpus
-)
-trainer.fit(model, dataloader_unlabeled_simclr)
-
-#Saving trained model
-trainer.save_checkpoint(path_save_model+"/simclr_bs_"+str(batch_size)+"_nepochs_"+str(max_epochs)+"_t_"+str(temp)+".ckpt")
+if __name__ == "__main__" :
+    torch.cuda.empty_cache()
+    gpus = 1 if torch.cuda.is_available() else 0
+    
+    model = SimCLRModel(t=temp)
+    
+    trainer = pl.Trainer(
+        max_epochs=max_epochs, progress_bar_refresh_rate=100, log_every_n_steps=1, gpus=gpus
+    )
+    trainer.fit(model, dataloader_unlabeled_simclr)
+    
+    #Saving trained model
+    trainer.save_checkpoint(path_save_model+"/simclr_bs_"+str(batch_size)+"_nepochs_"+str(max_epochs)+"_t_"+str(temp)+".ckpt")
 

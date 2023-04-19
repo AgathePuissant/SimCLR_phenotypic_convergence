@@ -65,11 +65,11 @@ pandas
 
 ## Machine Learning
 
-### A - Segmentation
+### A-Segmentation
 
 The segmentation code uses a pretrained segmentation model that uses PixelLib to automatically segment wings for other parts of the butterflies and background. Then there is a refinement step to obtain well segmented wings.
 
-Python codes can be run from command lines. You should change directory to the folder named "A - Segmentation" using the following command : ```cd ./SimCLR_phenotypic_convergence/Machine Learning/A - Segmentation```
+Python codes can be run from command lines. You should change directory to the folder named "A-Segmentation" using the following command : ```cd ./SimCLR_phenotypic_convergence/Machine Learning/A-Segmentation```
 
 
 For the segmentation, you should prepare one folder named as you wish where various subfolders will be created. The trained segmentation model can be found in supplementary materials and should be put in this folder.
@@ -121,9 +121,9 @@ Argument:
 - path_save: path to where you want your dataset saved 
 
 
-### B - Clustering
+### B-Clustering
 
-```cd ./SimCLR_phenotypic_convergence/Machine Learning/B - Clustering```
+```cd ./SimCLR_phenotypic_convergence/Machine Learning/B-Clustering```
 
 #### 1-VGG16_clustering.py
 
@@ -151,9 +151,9 @@ You should create a folder with whatever name to store the dataset.
 python 2-create_dataset.py --path_images ./all_segmented --path_dataset ./dataset --path_clustering ./clustering
 ```
 
-### C - Training
+### C-Training
 
-```cd ./SimCLR_phenotypic_convergence/Machine Learning/C - Training```
+```cd ./SimCLR_phenotypic_convergence/Machine Learning/C-Training```
 
 #### 1-simCLR_training.py
 
@@ -177,9 +177,9 @@ This code allows to estimate accuracy and other evaluation statistics for the cl
 python 2-evaluation_classification.py --param_i -1 --path_to_data ./dataset --path_save_model ./saved_models --num_workers 16 
 ```
 
-### D - Embed
+### D-Embed
 
-```cd ./SimCLR_phenotypic_convergence/Machine Learning/D - Embed```
+```cd ./SimCLR_phenotypic_convergence/Machine Learning/D-Embed```
 
 #### 1-generate_embeddings.py
 
@@ -210,3 +210,9 @@ Reproduces the tests and plots from the paper.
 #### Dimorphism.R
 Computes dimorphism and ratio of raw contrasts for males and females, and analyses the distribution of ratio.
 
+#### Simulations.R
+Runs trait simulation following a BM model on a lambda transformed tree to compare
+mean standardized distances that were observed vs simulated for sympatric and allopatric pairs
+
+#### PLMM.R
+Code to run PLMM analysis described in the paper.
