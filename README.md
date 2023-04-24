@@ -69,7 +69,7 @@ pandas
 
 The segmentation code uses a pretrained segmentation model that uses PixelLib to automatically segment wings for other parts of the butterflies and background. Then there is a refinement step to obtain well segmented wings.
 
-Python codes can be run from command lines. You should change directory to the folder named "A-Segmentation" using the following command : ```cd ./SimCLR_phenotypic_convergence/Machine Learning/A-Segmentation```
+Python codes can be run from command lines. You should change directory to the folder named "A-Segmentation" using the following command : ```cd SimCLR_phenotypic_convergence/Machine Learning/A-Segmentation```
 
 
 For the segmentation, you should prepare one folder named as you wish where various subfolders will be created. The trained segmentation model can be found in supplementary materials and should be put in this folder.
@@ -77,7 +77,7 @@ For the segmentation, you should prepare one folder named as you wish where vari
 #### 1-segmentation.py
 
 ```
-python 1-segmentation.py --path ./segmentation --path_jpg ./images_jpg --wing_name ['_Ant_g','_Post_g','_Ant_d','_Post_d'] --save_imwing_raw False --save_as_tif False --dim_images 3
+python 1-segmentation.py --path path/to/segmentation --path_jpg path/to/jpg/images --wing_name ['_Ant_g','_Post_g','_Ant_d','_Post_d'] --save_imwing_raw False --save_as_tif False --dim_images 3
 ```
 
 Arguments :
@@ -98,7 +98,7 @@ This code is optional. It finds the images for which there is potentially errors
 
 
 ```
-python 2-find_errors.py --path ./segmentation --path_jpg ./images_jpg --wing_name ['_Ant_g','_Post_g','_Ant_d','_Post_d']
+python 2-find_errors.py --path path/to/segmentation --path_jpg path/to/jpg/images --wing_name ['_Ant_g','_Post_g','_Ant_d','_Post_d']
 ```
 
 #### 3-correct_errors.py
@@ -106,7 +106,7 @@ python 2-find_errors.py --path ./segmentation --path_jpg ./images_jpg --wing_nam
 This code is optional. Should be run after find_errors, goes back to erroneous images and replaces their refined segmentation by the raw segmentation.
 
 ```
-python 3-correct_errors.py --path ./segmentation --path_jpg ./images_jpg --wing_name ['_Ant_g','_Post_g','_Ant_d','_Post_d'] --save_imwing_raw False --save_as_tif False --dim_images 3
+python 3-correct_errors.py --path"path/to/segmentation --path_jpg path/to/jpg/images --wing_name ['_Ant_g','_Post_g','_Ant_d','_Post_d'] --save_imwing_raw False --save_as_tif False --dim_images 3
 ```
 
 #### 4-get_imagedata.py
@@ -114,7 +114,7 @@ python 3-correct_errors.py --path ./segmentation --path_jpg ./images_jpg --wing_
 This code copies the segmented images in the subfolders to a folder of your choice.
 
 ```
-python 4-get_imagedata.py --path ./segmentation --path_save ./all_segmented
+python 4-get_imagedata.py --path path/to/segmentation --path_save path/to/copy/segmented
 ```
 
 Argument:
@@ -123,7 +123,7 @@ Argument:
 
 ### B-Clustering
 
-```cd ./SimCLR_phenotypic_convergence/Machine Learning/B-Clustering```
+```cd SimCLR_phenotypic_convergence/Machine Learning/B-Clustering```
 
 #### 1-VGG16_clustering.py
 
@@ -132,7 +132,7 @@ This code generated embeddings from a VGG16 pretrained network, projects them in
 You should create a folder named as you want to store the results from the clustering.
 
 ```
-python 1-VGG16_clustering.py --path_images ./all_segmented --path_clustering ./clustering
+python 1-VGG16_clustering.py --path_images path/to/segmented --path_clustering path/to/save/clustering
 ```
 Argument:
 - path_images: path to the dataset with segmented images
@@ -148,12 +148,12 @@ This code will create the unlabeled data used for SimCLR training, and the train
 You should create a folder with whatever name to store the dataset.
 
 ```
-python 2-create_dataset.py --path_images ./all_segmented --path_dataset ./dataset --path_clustering ./clustering
+python 2-create_dataset.py --path_images path/to/segmented --path_dataset path/to/save/training/data --path_clustering path/to/clustering
 ```
 
 ### C-Training
 
-```cd ./SimCLR_phenotypic_convergence/Machine Learning/C-Training```
+```cd SimCLR_phenotypic_convergence/Machine Learning/C-Training```
 
 #### 1-simCLR_training.py
 
@@ -162,7 +162,7 @@ Trains the SimCLR model using the previously built dataset.
 This code can be used either to train following a parameter grid search, or can be trained used the predetermined parameter values found in the article.
 
 ```
-python 1-simCLR_training.py --param_i -1 --path_to_data ./dataset --path_save_model ./saved_models --num_workers 16 
+python 1-simCLR_training.py --param_i -1 --path_to_data path/to/training/data --path_save_model path/to/save/trained/model --num_workers 16 
 ```
 Arguments:
 - param_i: parameters for the model. If this argument is -1 (the default), the model will be trained using pre determined parameters (batch size=256, max_epochs=300, temperature=0.5). If you wish to change parameters I recommend that you look into the code.
@@ -174,12 +174,12 @@ Arguments:
 This code allows to estimate accuracy and other evaluation statistics for the classification of your image datasets into the clusters, using only the embeddings from the trained SimCLR model. It gives an idea of the quality of embeddings, if they contain enough information about the images to find the cluster labels.
 
 ```
-python 2-evaluation_classification.py --param_i -1 --path_to_data ./dataset --path_save_model ./saved_models --num_workers 16 
+python 2-evaluation_classification.py --param_i -1 --path_to_data path/to/training/data --path_save_model path/to/trained/model --num_workers 16 
 ```
 
 ### D-Embed
 
-```cd ./SimCLR_phenotypic_convergence/Machine Learning/D-Embed```
+```cd SimCLR_phenotypic_convergence/Machine Learning/D-Embed```
 
 #### 1-generate_embeddings.py
 
@@ -187,7 +187,7 @@ This code generates embeddings for your image dataset using your trained SimCLR 
 PCA embeddings are generated by taking the images scores on a certain numbers of PCA axes - adding PCA axes until the gain of variance does not surpass .5%.
 
 ```
-python 1-generate_embeddings.py --param_i -1 --path_to_data ./dataset --path_save_model ./saved_model --path_save ./coordinates --num_workers 16 
+python 1-generate_embeddings.py --param_i -1 --path_to_data path/to/segmented --path_save_model path/to/trained/model --path_save path/to/save/coordinates --num_workers 16 
 ```
 Arguments:
 - path_save: path where to save the pca coordinates and embeddings.
