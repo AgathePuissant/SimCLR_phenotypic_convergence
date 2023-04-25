@@ -86,16 +86,13 @@ feat = feat.reshape(-1,4096)
 #%% UMAP projection
 mapper = umap.UMAP(n_components=3).fit(feat)
 umap_results=mapper.embedding_
-
-fig = plt.figure()
-ax = fig.add_subplot(projection='3d')
-ax.scatter(umap_results[:,0],umap_results[:,1],umap_results[:,2])
-plt.show()
 #%%
 
 stop = 0
 
 while stop==0 :
+    
+    fig = plt.figure()
     
     plt.close('all')
     

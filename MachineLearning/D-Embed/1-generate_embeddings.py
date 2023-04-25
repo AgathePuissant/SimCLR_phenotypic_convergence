@@ -181,22 +181,12 @@ if __name__ == '__main__':
     #Selection of the axes bringing more than 0.5% of explained variance in addition
     sel_comp = pca.explained_variance_ratio_-np.concatenate([pca.explained_variance_ratio_[1:],[0]])>0.0005
     
+    print("Explained variance: ")
     print(pca.explained_variance_ratio_[sel_comp]*100)
+    print("Total explained variance: ")
     print(sum(pca.explained_variance_ratio_[sel_comp]*100))
+    print("Cumulative explained variance: ")
     print(np.cumsum(pca.explained_variance_ratio_[sel_comp]*100))
-
-    #summary figures of the PCA
-    plt.figure()
-    plt.plot(np.cumsum(pca.explained_variance_ratio_[sel_comp]), 'o-')
-    plt.xlabel('number of components')
-    plt.ylabel('cumulative explained variance');
-    plt.xticks(ticks=sel_comp,labels=range(1,np.sum(sel_comp)+1))
-    
-    plt.figure()
-    plt.bar(sel_comp,pca.explained_variance_ratio_[sel_comp]*100)
-    plt.xlabel('components')
-    plt.ylabel('explained variance');
-    plt.xticks(ticks=sel_comp,labels=range(1,np.sum(sel_comp)+1))
 
     pca_embeddings = pca.fit_transform(embeddings)
     pca_embeddings = pca_embeddings[:,sel_comp]
