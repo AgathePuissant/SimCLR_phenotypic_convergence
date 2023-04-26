@@ -14,6 +14,8 @@ And the R code necessary to:
 - Run a permutation test to assess convergence and divergence in sympatry
 - Assess which sex contributes to recent dimorphism evolution
 
+You can find information about the general concepts and the different steps in documentation.pdf.
+
 Python packages needed :
 
 *** 
