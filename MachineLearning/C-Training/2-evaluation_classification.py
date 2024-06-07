@@ -19,6 +19,7 @@ from torchvision import datasets
 import torch.optim as optim
 import time
 import copy
+from sklearn.preprocessing import normalize
 
 
 #%%
@@ -26,8 +27,8 @@ import copy
 #Parser for the gridsearch
 parser = ArgumentParser()
 parser.add_argument("--param_i", type=int, default=0)
-parser.add_argument("--path_to_data", type=str, default="/mnt/beegfs/apuissant/train_label_16")
-parser.add_argument("--path_save_model", type=str, default="/mnt/beegfs/apuissant/gridsearch_16")
+parser.add_argument("--path_to_data", type=str, default="/mnt/beegfs/apuissant/without_tail_train_dataset")
+parser.add_argument("--path_save_model", type=str, default="/mnt/beegfs/apuissant/without_tail_model")
 parser.add_argument("--num_workers", type=int, default=16)
 
 

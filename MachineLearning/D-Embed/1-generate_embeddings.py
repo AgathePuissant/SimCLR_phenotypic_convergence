@@ -12,17 +12,19 @@ from lightly.models.modules.heads import SimCLRProjectionHead
 from lightly.loss import NTXentLoss
 from tqdm import tqdm
 from sklearn.model_selection import ParameterGrid
+from sklearn import preprocessing
 
 
 from argparse import ArgumentParser
 
 parser = ArgumentParser()
 
-parser.add_argument("--path_to_data", type=str, default = r"C:\Users\Agathe\Desktop\dataset_test") #path to the segmented images
-parser.add_argument("--path_save_model", type=str, default = r"C:\Users\Agathe\Mon Drive\Données\saved_models\ContrastiveLearning\transfer_trained_on_all_classified_16") 
-parser.add_argument("--path_save", type=str, default = "C:/Users/Agathe/Desktop") 
+parser.add_argument("--path_to_data", type=str, default = r"C:\Users\Agathe\Desktop\dataset_Bchannel") #path to the segmented images
+parser.add_argument("--path_save_model", type=str, default = r"C:\Users\Agathe\Mon Drive\Données\saved_models\ContrastiveLearning\grayscale") 
+# parser.add_argument("--path_save_model", type=str, default = r"C:\Users\Agathe\Mon Drive\Données\saved_models\ContrastiveLearning\transfer_trained_on_all_classified_16") 
+parser.add_argument("--path_save", type=str, default = r"C:\Users\Agathe\Mon Drive\Données\coords\Bchannel") 
 parser.add_argument("--param_i", type=int, default=-1)
-parser.add_argument("--num_workers", type=int, default=16)
+parser.add_argument("--num_workers", type=int, default=8)
 
 args = parser.parse_args()
 dict_args = vars(args)
@@ -46,7 +48,7 @@ temp = grid[param]["temperature"]
 
 #To use pre determined parameter values
 if param == -1 :
-  batch_size=256
+  batch_size=128
   max_epochs = 300
   temp = 0.5
   
@@ -105,7 +107,8 @@ def run():
     model = SimCLRModel(t=temp)
     
     #Chargement du modèle voulu
-    pre = torch.load(model_to_use+"/simclr_bs_"+batch_size+"_nepochs_"+max_epochs+"_t_"+temp+".ckpt")
+    pre = torch.load(model_to_use+"/simclr_grayscale_bs_"+str(batch_size)+"_nepochs_"+str(max_epochs)+"_t_"+str(temp)+".ckpt")
+    # pre = torch.load(model_to_use+"/simclr_bs_"+str(batch_size)+"_nepochs_"+str(max_epochs)+"_t_"+str(temp)+".ckpt")
     model.load_state_dict(pre['state_dict'])
     
     
@@ -158,7 +161,7 @@ def run():
     
     dataloader_embed = torch.utils.data.DataLoader(
         dataset_embed,
-        batch_size=100,
+        batch_size=1,
         shuffle=False,
         drop_last=False,
         num_workers=num_workers
@@ -175,8 +178,10 @@ if __name__ == '__main__':
     photo = d[2]
 
     #PCA on raw coordinates dimensions 2048
+    scaler = preprocessing.StandardScaler().fit(embeddings)
+    embeddings_pca = scaler.transform(embeddings)
     pca = PCA()
-    pca.fit(embeddings)
+    pca.fit(embeddings_pca)
     
     #Selection of the axes bringing more than 0.5% of explained variance in addition
     sel_comp = pca.explained_variance_ratio_-np.concatenate([pca.explained_variance_ratio_[1:],[0]])>0.0005
@@ -188,7 +193,7 @@ if __name__ == '__main__':
     print("Cumulative explained variance: ")
     print(np.cumsum(pca.explained_variance_ratio_[sel_comp]*100))
 
-    pca_embeddings = pca.fit_transform(embeddings)
+    pca_embeddings = pca.fit_transform(embeddings_pca)
     pca_embeddings = pca_embeddings[:,sel_comp]
 
     plt.figure()
@@ -199,7 +204,7 @@ if __name__ == '__main__':
     plt.scatter(pca_embeddings[:,1],pca_embeddings[:,2])
     
     #Sauvegarde des coordonnées brutes et dans l'ACP (attention les noms sont ceux bruts des photos)
-    pd.DataFrame(pca_embeddings,index=photo).to_csv(path_save+"/pca_embeddings.csv", sep=";")
-    pd.DataFrame(embeddings,index=photo).to_csv(path_save+"/embeddings.csv", sep=";")
+    pd.DataFrame(pca_embeddings,index=photo).to_csv(path_save+"/pca_embeddings_Bchannel.csv", sep=";")
+    pd.DataFrame(embeddings,index=photo).to_csv(path_save+"/embeddings_Bchannel.csv", sep=";")
 
     

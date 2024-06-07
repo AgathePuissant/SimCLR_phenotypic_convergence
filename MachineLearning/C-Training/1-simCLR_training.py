@@ -13,15 +13,16 @@ from sklearn.model_selection import ParameterGrid
 from torchvision import datasets
 from lightly.models.modules.heads import SimCLRProjectionHead
 from lightly.loss import NTXentLoss
+from lightly.data import SimCLRCollateFunction
 
 #%%
 
 #Parser for the gridsearch
 parser = ArgumentParser()
-parser.add_argument("--param_i", type=int, default=0)
-parser.add_argument("--path_to_data", type=str, default="/mnt/beegfs/apuissant/train_label_16")
-parser.add_argument("--path_save_model", type=str, default="/mnt/beegfs/apuissant/gridsearch_16")
-parser.add_argument("--num_workers", type=int, default=16)
+parser.add_argument("--param_i", type=int, default=-1)
+parser.add_argument("--path_to_data", type=str, default=r"C:\Users\Agathe\Desktop\without_tail_train_dataset_resized")
+parser.add_argument("--path_save_model", type=str, default=r"C:\Users\Agathe\Desktop\without_tail_model")
+parser.add_argument("--num_workers", type=int, default=8)
 
 
 args = parser.parse_args()
@@ -46,8 +47,8 @@ temp = grid[param]["temperature"]
 
 #To use pre determined parameter values
 if param == -1 :
-  batch_size=256
-  max_epochs = 300
+  batch_size=128
+  max_epochs = 600
   temp = 0.5
 
 n_class = len(os.listdir(path_to_data+"/unlabeled")) #Number of classes (used to balance the training)
@@ -58,7 +59,7 @@ print('batch_size = '+str(batch_size)+' max_epochs = '+str(max_epochs)+' tempera
 
 
 #Augmentation function for simCLR
-collate_fn = lightly.data.SimCLRCollateFunction(
+collate_fn = SimCLRCollateFunction(
     input_size=input_size,
     min_scale=0.5,
     vf_prob=0.5,
@@ -149,7 +150,7 @@ if __name__ == "__main__" :
     model = SimCLRModel(t=temp)
     
     trainer = pl.Trainer(
-        max_epochs=max_epochs, progress_bar_refresh_rate=100, log_every_n_steps=1, gpus=gpus
+        max_epochs=max_epochs, log_every_n_steps=1, gpus=gpus
     )
     trainer.fit(model, dataloader_unlabeled_simclr)
     

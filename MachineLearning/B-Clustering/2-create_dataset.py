@@ -9,8 +9,8 @@ from argparse import ArgumentParser
 
 parser = ArgumentParser()
 
-parser.add_argument("--path_images", type=str, default = r"C:\Users\Agathe\Desktop\dataset_test") #path to the segmented images
-parser.add_argument("--path_dataset", type=str, default = "C:/Users/Agathe/Desktop/train_label_test") 
+parser.add_argument("--path_images", type=str, default = r"C:\Users\Agathe\Desktop\without_tail") #path to the segmented images
+parser.add_argument("--path_dataset", type=str, default = "C:/Users/Agathe/Desktop/without_tail_train_dataset") 
 parser.add_argument("--path_clustering", type=str, default = "C:/Users/Agathe/Desktop/clustering") 
 
 args = parser.parse_args()
