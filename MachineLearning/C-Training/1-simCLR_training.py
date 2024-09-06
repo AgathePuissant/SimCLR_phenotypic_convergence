@@ -20,8 +20,8 @@ from lightly.data import SimCLRCollateFunction
 #Parser for the gridsearch
 parser = ArgumentParser()
 parser.add_argument("--param_i", type=int, default=-1)
-parser.add_argument("--path_to_data", type=str, default=r"C:\Users\Agathe\Desktop\without_tail_train_dataset_resized")
-parser.add_argument("--path_save_model", type=str, default=r"C:\Users\Agathe\Desktop\without_tail_model")
+parser.add_argument("--path_to_data", type=str, default=r"C:\Users\Agathe\Desktop\train_label_cc")
+parser.add_argument("--path_save_model", type=str, default=r"C:\Users\Agathe\Desktop")
 parser.add_argument("--num_workers", type=int, default=8)
 
 
@@ -48,7 +48,7 @@ temp = grid[param]["temperature"]
 #To use pre determined parameter values
 if param == -1 :
   batch_size=128
-  max_epochs = 600
+  max_epochs = 300
   temp = 0.5
 
 n_class = len(os.listdir(path_to_data+"/unlabeled")) #Number of classes (used to balance the training)
@@ -155,5 +155,5 @@ if __name__ == "__main__" :
     trainer.fit(model, dataloader_unlabeled_simclr)
     
     #Saving trained model
-    trainer.save_checkpoint(path_save_model+"/simclr_bs_"+str(batch_size)+"_nepochs_"+str(max_epochs)+"_t_"+str(temp)+".ckpt")
+    trainer.save_checkpoint(path_save_model+"/simclr_cc_bs_"+str(batch_size)+"_nepochs_"+str(max_epochs)+"_t_"+str(temp)+".ckpt")
 

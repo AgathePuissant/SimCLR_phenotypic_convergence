@@ -19,10 +19,10 @@ from argparse import ArgumentParser
 
 parser = ArgumentParser()
 
-parser.add_argument("--path_to_data", type=str, default = r"C:\Users\Agathe\Desktop\dataset_Bchannel") #path to the segmented images
-parser.add_argument("--path_save_model", type=str, default = r"C:\Users\Agathe\Mon Drive\Données\saved_models\ContrastiveLearning\grayscale") 
+parser.add_argument("--path_to_data", type=str, default = r"C:\Users\Agathe\Desktop\dataset_all_visible_linearized_v2") #path to the segmented images
+parser.add_argument("--path_save_model", type=str, default = r"C:\Users\Agathe\Mon Drive\Données\saved_models\ContrastiveLearning\cc") 
 # parser.add_argument("--path_save_model", type=str, default = r"C:\Users\Agathe\Mon Drive\Données\saved_models\ContrastiveLearning\transfer_trained_on_all_classified_16") 
-parser.add_argument("--path_save", type=str, default = r"C:\Users\Agathe\Mon Drive\Données\coords\Bchannel") 
+parser.add_argument("--path_save", type=str, default = r"J:\UV") 
 parser.add_argument("--param_i", type=int, default=-1)
 parser.add_argument("--num_workers", type=int, default=8)
 
@@ -107,7 +107,7 @@ def run():
     model = SimCLRModel(t=temp)
     
     #Chargement du modèle voulu
-    pre = torch.load(model_to_use+"/simclr_grayscale_bs_"+str(batch_size)+"_nepochs_"+str(max_epochs)+"_t_"+str(temp)+".ckpt")
+    pre = torch.load(model_to_use+"/simclr_bs_"+str(batch_size)+"_nepochs_"+str(max_epochs)+"_t_"+str(temp)+".ckpt")
     # pre = torch.load(model_to_use+"/simclr_bs_"+str(batch_size)+"_nepochs_"+str(max_epochs)+"_t_"+str(temp)+".ckpt")
     model.load_state_dict(pre['state_dict'])
     
@@ -204,7 +204,7 @@ if __name__ == '__main__':
     plt.scatter(pca_embeddings[:,1],pca_embeddings[:,2])
     
     #Sauvegarde des coordonnées brutes et dans l'ACP (attention les noms sont ceux bruts des photos)
-    pd.DataFrame(pca_embeddings,index=photo).to_csv(path_save+"/pca_embeddings_Bchannel.csv", sep=";")
-    pd.DataFrame(embeddings,index=photo).to_csv(path_save+"/embeddings_Bchannel.csv", sep=";")
+    pd.DataFrame(pca_embeddings,index=photo).to_csv(path_save+"/pca_embeddings_cc_v2.csv", sep=";")
+    pd.DataFrame(embeddings,index=photo).to_csv(path_save+"/embeddings_cc_v2.csv", sep=";")
 
     

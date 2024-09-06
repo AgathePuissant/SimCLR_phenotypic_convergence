@@ -22,7 +22,7 @@ from argparse import ArgumentParser
 
 parser = ArgumentParser()
 
-parser.add_argument("--path_images", type=str, default = r"C:\Users\Agathe\Desktop\without_tail") #path to the segmented images
+parser.add_argument("--path_images", type=str, default = r"C:\Users\Agathe\Desktop\dataset_all_visible_linearized") #path to the segmented images
 parser.add_argument("--path_clustering", type=str, default = "C:/Users/Agathe/Desktop/clustering") #path to the clustering folder to save clustered images
 
 args = parser.parse_args()
@@ -52,7 +52,7 @@ def extract_features(file, model):
   #prepare image for model
   imgx = preprocess_input(reshaped_img)
   #get the feature vector
-  features = model.predict(imgx, use_multiprocessing=True)
+  features = model.predict(imgx)#, use_multiprocessing=True)
   return features
 
 

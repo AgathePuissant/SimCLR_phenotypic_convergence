@@ -4,13 +4,14 @@ from pathlib import Path
 from PIL import Image
 import random
 import shutil
+import tqdm
 
 from argparse import ArgumentParser
 
 parser = ArgumentParser()
 
-parser.add_argument("--path_images", type=str, default = r"C:\Users\Agathe\Desktop\without_tail") #path to the segmented images
-parser.add_argument("--path_dataset", type=str, default = "C:/Users/Agathe/Desktop/without_tail_train_dataset") 
+parser.add_argument("--path_images", type=str, default = r"C:\Users\Agathe\Desktop\dataset_all_visible_linearized") #path to the segmented images
+parser.add_argument("--path_dataset", type=str, default = r"C:\Users\Agathe\Desktop\train_label_cc") 
 parser.add_argument("--path_clustering", type=str, default = "C:/Users/Agathe/Desktop/clustering") 
 
 args = parser.parse_args()
@@ -54,7 +55,7 @@ for dirs,_,files in os.walk(path_clusters) :
 val=list(dico.values())
 
 
-for i in range(len(im)) :
+for i in tqdm.tqdm(range(len(im))) :
     
     #We put 20% of the images in the validation and 80% in the training
     coin = random.random()
@@ -74,6 +75,24 @@ for i in range(len(im)) :
             
         if not Path(path+"/"+cl[-1]+"/"+im_to_copy).exists():
             im_read = Image.open(path_images+"/"+im_to_copy+".jpg")
+            
+            
+            
+            #To resize !!
+            # Get the dimensions of the image
+            original_height, original_width = im_read.size
+        
+            # Set the scaling factor (50% of the original size)
+            scale_percent = 0.1  # 50%
+        
+            # Calculate the new dimensions
+            new_width = int(original_width * scale_percent)
+            new_height = int(original_height * scale_percent)
+            new_dim = (new_width, new_height)
+        
+            # Resize the image
+            im_read = im_read.resize((new_height,new_width), Image.LANCZOS)
+            
             im_read.save(path+"/"+cl[-1]+"/"+im_to_copy[:]+".jpg")
     else :
         print("Not found in clustering")
@@ -85,4 +104,20 @@ for i in range(len(im)) :
         
     if not Path(path_unlabeled+"/"+cl[-1]+"/"+im_to_copy).exists():
         im_read = Image.open(path_images+"/"+im_to_copy+".jpg")
+        
+        #To resize !!
+        # Get the dimensions of the image
+        original_height, original_width = im_read.size
+    
+        # Set the scaling factor (50% of the original size)
+        scale_percent = 0.1  # 50%
+    
+        # Calculate the new dimensions
+        new_width = int(original_width * scale_percent)
+        new_height = int(original_height * scale_percent)
+        new_dim = (new_width, new_height)
+    
+        # Resize the image
+        im_read = im_read.resize((new_height,new_width), Image.LANCZOS)
+        
         im_read.save(path_unlabeled+"/"+cl[-1]+"/"+im_to_copy[:]+".jpg")
